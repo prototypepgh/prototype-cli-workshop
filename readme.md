@@ -9,7 +9,8 @@ Please [get an account on PythonAnywhere](https://github.com/prototypepgh/protot
 The slides are available [here](http://bit.ly/cli-prototype-slides), and you can follow along with the commands from the slides and their output [here](https://raw.githubusercontent.com/prototypepgh/prototype-cli-workshop/master/command_line_basics.txt). 
 
 The command we're going to have you copy and paste, to start the workshop, is 
-**git clone https://github.com/prototypepgh/prototype-cli-workshop.git**
+
+  **git clone https://github.com/prototypepgh/prototype-cli-workshop.git**
 
 We welcome you to work through any of the exercises that seem interesting to you!
 
