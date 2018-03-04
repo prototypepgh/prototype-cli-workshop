@@ -2,7 +2,7 @@
 
 ## Before the workshop
 
-Please [get an account on PythonAnywhere](https://github.com/prototypepgh/prototype-cli-workshop/blob/master/get_account.md). It's free. It takes a few minutes and would be good to do ahead of time.
+Please get an account on [PythonAnywherel](https://pythonanywhere.com) ([here are directions, in case that's helpful](https://github.com/prototypepgh/prototype-cli-workshop/blob/master/get_python_anywhere.pdf)). It's free. It only takes a minute, but it would be good to do ahead of time.
 
 ## During the workshop
 
