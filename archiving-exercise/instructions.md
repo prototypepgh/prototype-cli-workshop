@@ -1,14 +1,14 @@
-# Command line tools for archivists
+# Intro to the Command Line - Self-paced exercise
 
-There are numerous ways archivists can benefit from using command line tools. In particular, the exercises below will cover conversion of file formats and character encodings, batch renaming of files, searching for files and text within them, and making quick edits to text files. Parts of the [cataloger](https://github.com/csheldonhess/c4l16-cli-workshop/tree/master/cataloging-exercise) and [web developer](https://github.com/csheldonhess/c4l16-cli-workshop/tree/master/webdev-exercise) exercises will likely be of interest, too; be sure to check those out after you're finished here!
+The exercises below will cover batch renaming of files, searching for files and text within them, and making quick edits to text files. 
 
-Also, a reminder: the workshop leaders are here to help. Put up a sticky note if you need help, or feel free to ask others who are working on the same exercise! We wrote all of this out so you'd have it to refer to later, but we _want_ to help while you've got us! If anything's unclear or confusing, let us know!
+Also, a reminder: the workshop leader is still here to help. Get their attention if you need help! Or, if you're flying through it, feel free to help anyone who looks a little lost. This is all written out so that you can use it later, but I'm still here to help you. :)
 
 OK, here we go!
 
 ## Setup
 
-Navigate (`cd`) to `/home/nitrous/cli-workshop/archiving-exercise/`
+Navigate (`cd`) to `/home/username/cli-workshop/exercise/`
 
 Look in the directory (`ls`), just to see what's there. 
 
@@ -20,80 +20,25 @@ Run the following command (don't type the >):
 
 Congratulations, you just ran a Python script from the command line! 👍
 
-Digression: "Why," you might ask, "did we stick `./` in front of the name of the script?" Good question! When you want to run a script, you need to specify the full name of the script, which includes the path. In this case, you could also run it using `/home/nitrous/cli-workshop/archive-exercise/makefiles.py`, but that's a lot to type. And, as we mentioned earlier, when you want to refer to the current working directory, `.` is great shorthand, much easier to type.
+Digression: "Why," you might ask, "did we stick `./` in front of the name of the script?" Good question! When you want to run a script, you need to specify the full name of the script, which includes the path. In this case, you could also run it using `/home/username/cli-workshop/exercise/makefiles.py`, but that's a lot to type. And, as we mentioned earlier, when you want to refer to the current working directory, `.` is great shorthand, much easier to type.
 
-Now, look in the directory again, and notice there's a new subdirectory, `c4lfiles`. You'll use this during the "Batch Renaming Files" exercise, later. For now, we're going to do fun things with another file in the directory, `lorem.txt`.
-
-## File formatting issues
-
-Let's say you've got some files that aren't in the right character set. They're in ASCII, but you need them to be in UTF-8 Unicode. Or they're in UTF-8 but they need to be in UTF-16.
-
-You can look at what type and format your file is with the `file` command.
-
-Make sure you're in `/home/nitrous/cli-workshop/archiving-exercise/`, and type the following:
-
-`> file -bi lorem.txt`
-
-This tells you the _type_ of the file `lorem.txt`. The `-b` flag tells it to be brief, which just means it won't put the filename at the beginning of the output.
-
-Including `-i` changes the format of its output to include its (MIME type)[https://en.wikipedia.org/wiki/Media_type] along with, if applicable, the character encoding. To see the difference, go ahead and also type
-
-```
-> file -b lorem.txt
-> file lorem.txt
-```
-
-Often having the more precise output is helpful, so getting in the habit of using `-bi` is not a bad choice.
-
-It would be valid, if you preferred, to separate the flags:
-
-`> file -b -i lorem.txt`
-
-So now we know our file is UTF-8. 
-
-Look inside the file, if you'd like. There are a number of ways to do this (`cat`, `more`, `less`). 
-
-`> more lorem.txt`
-
-You can scroll slowly by hitting Enter and the up and down arrows; or page down by hitting the spacebar. If you are tired of scrolling, just type the letter `q` to get out.
-
-Digression: the command `clear` will remove all of the old commands and text from your field of view, giving you a nice, clean command line interface. Feel free to use it at any point. You can still hit the up arrow to get to your last command, and then use up and down to scroll back through earlier commands. Nothing's lost; it just makes your screen cleaner.
-
-You can also _change_ the formatting of a file with `iconv`.
-
-`> iconv -f UTF-8 -t UTF-16  lorem.txt > lorem2.txt`
-
-This makes a copy of `lorem.txt`, in UTF-16 format instead of UTF-8, and saves it as `lorem2.txt`.
-
-Confirm that it changed using the `file` command on `lorem2.txt`.
-
-Another cool usage of iconv is on strings of text, like so:
-
-`> echo "Êàêèå-òî êðàêîçÿáðû" | iconv -t latin1 | iconv -f cp1251 -t utf-8` 
-
-This should output `Какие-то кракозябры`
-
-What that command is doing is using pipes (`|`) in order to write (`echo`) a string (`Êàêèå-òî êðàêîçÿáðû`) to the command `iconv`, first to convert it to encoding `latin1`, then taking the output of that and feeding it to `iconv` again, to convert it from the encoding `cp1251` to `utf-8`.
-
-(The specifics of why latin1 and cp1251 are used seemingly interchangeably like that are left for those interested enough to dig in. The finer points of character encodings are somewhat beyond the scope of this workshop. 😁)
-
-'iconv' is really useful if you have garbled text (or a whole file of garbled text), and you know, or have a good guess, what encoding it _should_ be in, to un-garble it.
+Now, look in the directory again, and notice there's a new subdirectory, `c4lfiles`. 
 
 ## Batch renaming files
 
-Let's pretend you have volunteered to archive all of the data from all the Code4Lib conferences up to now. Thanks! Unfortunately, the data were put together by lots of really enthusiastic volunteers, who were not given a complete file naming convention ahead of time. (Let’s pretend there aren’t a ton of metadata experts in the Code4Lib community who would prevent that from happening.) Everything is in CSV (comma-separated values) format.
+Let's pretend you have volunteered to archive all of the data from about a decade's worth of conferences run by an organization called "Code4Lib." Thanks! Unfortunately, the data were put together by lots of really enthusiastic volunteers, who were not given a complete file naming convention ahead of time. Everything is in CSV (comma-separated values) format.
 
-Navigate to the `c4lfiles` directory (under `/home/nitrous/cli-workshop/archiving-exercise/`), and look at what's in there (`ls`).
+Navigate to the `c4lfiles` directory (under `/home/username/cli-workshop/exercise/`), and look at what's in there (`ls`).
 
 As you can see, there are about 100 files there, all from different years. They're kind of a mess. If you were to try renaming all of these files by hand, it would be tedious and take quite a while to do, but we're going to clean this whole thing up with less than five minutes' worth of work.
 
 Now, there are a number of ways to do bulk edits of filenames on a CLI, including writing a script in Python or bash, or doing clever things with UNIX's `find` command. These are all totally valid. We’ll be using the `rename` command today. 
 
-If you're working through this on a Mac, rather than on Nitrous, you'll want to [follow these directions](http://macappstore.org/rename/) first. And there'll be one other little snag, later, but we'll get there when we get there. 😃
+If you're working through this on a Mac, rather than on PythonAnywhere, you'll want to [follow these directions](http://macappstore.org/rename/) first. And there'll be one other little snag, later, but we'll get there when we get there. 😃
 
 ### Rename
 
-Rename uses something called "regular expressions," or as they are commonly referred to, "regex," to match on and change filenames. We are not going into regex in depth today, but we will use some fairly simple regular expressions, which will be explained along the way, to do the work we need to do. `rename` uses the Perl flavor of regular expressions.
+Rename uses something called "regular expressions," or as they are commonly referred to, "regex," to match on and change filenames. We are not going into regex in depth today, but we will use some fairly simple regular expressions, which will be explained along the way, to do the work we need to do. In case you opt to do something more complicated later, you'll want to know: `rename` uses the Perl flavor of regular expressions.
 
 ```rename -[flags] [regular expression] files```
 
@@ -163,7 +108,7 @@ Our volunteers' delimiters (the things that split "code4lib," the year, and what
 
 I like underscores, so let's standardize on that.
 
-This can be done with three commands (but wait before you enter them):
+This can be done with three commands (but **wait before you enter them**):
 
 `> rename 's/-/_/g' *`
 
@@ -201,7 +146,7 @@ Now, __run either the three separate commands or the combined command__ (using `
 
 The volunteers all capitalized Code4Lib differently, just as they likely were split on how it's pronounced. Capitalization can affect how things are alphabetized in some systems, and it just looks messy; so let's make everything lowercase, shall we?
 
-Note: We've reached the other snag for Mac users. This (apparently) won't work on a Mac, because Macs seem to have case-insensitive file naming. (I'm not bitter. This didn't waste _hours_ of my time. Nope.) It works fine on Nitrous and many other systems with command line interfaces, so it's definitely worth your time to find out about. Just know that, on some systems, it'll fail with a message along the lines of "'Code4Lib_programs_2014.csv' not renamed: 'code4lib_programs_2014.csv' already exists."
+Note: We've reached the other snag for Mac users. This (apparently) won't work on a Mac, because Macs seem to have case-insensitive file naming. (I'm not bitter. This didn't waste _hours_ of my time. Nope.) It works fine on username and many other systems with command line interfaces, so it's definitely worth your time to find out about. Just know that, on some systems, it'll fail with a message along the lines of "'Code4Lib_programs_2014.csv' not renamed: 'code4lib_programs_2014.csv' already exists."
 
 Anyway, the command (wait to run it):
 
@@ -263,19 +208,19 @@ Wellll, that was mostly true. But some commands have flags that 1) are more than
 
 `> find (starting directory) (matching criteria and actions)`
 
-So if you want to make a list of files named, for instance, "instructions.md" in `/home/nitrous/cli-workshop/`, here's what that looks like:
+So if you want to make a list of files named, for instance, "instructions.md" in `/home/username/cli-workshop/`, here's what that looks like:
 
-`> find /home/nitrous/cli-workshop/ -name instructions.md -print`
+`> find /home/username/cli-workshop/ -name instructions.md -print`
 
 (It should show you the names and full paths of three files.)
 
-`/home/nitrous/cli-workshop` is where it starts looking, and it looks for files with the name "instructions.md," in all of the subdirectories under that directory. (There is a flag to prevent it from acting recursively, though.) That final flag, `-print`, tells it to show a list of those files and their paths.
+`/home/username/cli-workshop` is where it starts looking, and it looks for files with the name "instructions.md," in all of the subdirectories under that directory. (There is a flag to prevent it from acting recursively, though.) That final flag, `-print`, tells it to show a list of those files and their paths.
 
 You can do some really powerful stuff with `find`, including searching for files that were accessed on a certain date (not a super useful example to run, right now, on this machine) or files that were modified on a certain date or files that are a certain size.
 
 Here's a command to look at everything in our workshop directory that was modified today:
 
-`> find /home/nitrous/cli-workshop/ -mtime -1 -print`
+`> find /home/username/cli-workshop/ -mtime -1 -print`
 
 But you saw that `-print` flag? That implies that there are other things you can do, besides printing the list, right? Right. 😃
 
@@ -311,10 +256,3 @@ We don't need to go through all of the commands right now, but it's worth pointi
 
 Also, if you want to save your work without exiting the file, you want to use `ctrl-o`.
 
-## Wrap up
-
-So that's the exercise for archivists. Hopefully you've asked your questions as they've come up, but if not, please feel free to call over one of the workshop leaders or anyone else who seems to know what's going on. 
-
-If you're finished before the workshop time is over (or you're excited and want to keep going on this after the workshop's over), feel free to work on the [cataloger](https://github.com/csheldonhess/c4l16-cli-workshop/tree/master/cataloging-exercise) or [web developer](https://github.com/csheldonhess/c4l16-cli-workshop/tree/master/webdev-exercise) exercise, too.
-
-Thank you!
