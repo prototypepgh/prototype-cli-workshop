@@ -1,62 +1,121 @@
-If you type every command we ask you to in the slides, in order, this is what it looks like. "➜ [anything]" indicates the prompt; any line that doesn't start with "➜" is output.
+If you type every command the slides ask you to type, in order, this is what it looks like. "➜ [anything] $" indicates the prompt (meaning the command starts after the "$ "); any line that doesn't start with "➜" is output. Also, just like in the slides, anywhere you see "username" you should replace that with your username on the machine.
 
-➜  ~  mv c4l16-cli-workshop-master cli-workshop
-➜  ~  whoami
-nitrous
-➜  ~  pwd
-/home/nitrous
-➜  ~  cd ..
-➜  /home  pwd
+➜ ~ $ git clone https://github.com/prototypepgh/prototype-cli-workshop.git
+Cloning into 'prototype-cli-workshop'...
+remote: Counting objects: 450, done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 450 (delta 10), reused 11 (delta 3), pack-reused 426
+Receiving objects: 100% (450/450), 8.11 MiB | 8.52 MiB/s, done.
+Resolving deltas: 100% (184/184), done.
+Checking connectivity... done.
+➜ ~ $ mv prototype-cli-workshop/ cli-workshop
+➜ ~ $ whoami
+username
+➜ ~ $ pwd
+/home/username
+➜ ~ $ cd ..
+➜ /home $ pwd
 /home
-➜  /home  cd nitrous/cli-workshop
-➜  cli-workshop  pwd
-/home/nitrous/cli-workshop
-➜  cli-workshop  cd ~
-➜  ~  pwd
-/home/nitrous
-➜  ~  cd .
-➜  ~  pwd
-/home/nitrous
-➜  ~  ls
-cli-c4l  cli-workshop  code
-➜  ~  ls -a
-.             .cache        .cpan       .npm        .tmux.conf  .zcompdump-test-run-160117-5.0.2
-..            cli-c4l       .gitconfig  .oh-my-zsh  .vim        .zsh_history
-.bash_logout  cli-workshop  .heroku     .profile    .vimrc      .zshrc
-.bashrc       code          .hushlogin  .ssh        .zcompdump
-➜  ~  ls ..
-nitrous
-➜  ~  ls cli-workshop/cataloging-exercise
-batch-analysis.sh  exercise-two.py  MARCgrep.pl        pm-script.py
-example.mrc        instructions.md  non-exe-script.sh  script.sh
-➜  ~  touch thing.txt
-➜  ~  ls
-cli-c4l  cli-workshop  code  thing.txt
-➜  ~  mkdir mydirectory
-➜  ~  ls
-cli-c4l  cli-workshop  code  mydirectory  thing.txt
-➜  ~  mv thing.txt mydirectory
-➜  ~  ls
-cli-c4l  cli-workshop  code  mydirectory
-➜  ~  ls mydirectory
+➜ /home $ cd username/cli-workshop
+➜ ~/cli-workshop (master)$ pwd
+/home/username/cli-workshop
+➜ ~/cli-workshop (master)$ cd ~
+➜ ~ $ pwd
+/home/username
+➜ ~ $ cd .
+➜ ~ $ pwd
+/home/username
+➜ ~ $ ls
+README.txt  cli-workshop
+➜ ~ $ ls -a  
+.  ..  .bashrc  .gitconfig  .local  .profile  .pythonstartup.py  .vimrc  .virtualenvs  README.txt  cli-workshop                                           
+➜ ~ $ ls ..
+username 
+➜ ~ $ ls cli-workshop/exercise/
+README.md  exercise-instructions.pdf  human_rights.txt  instructions.md  lorem.txt  makefiles.py                                                          
+➜ ~ $ touch thing.txt                                         
+➜ ~ $ ls    
+README.txt  cli-workshop  thing.txt  
+➜ ~ $ mkdir mydirectory                                            
+➜ ~ $ ls
+README.txt  cli-workshop  mydirectory  thing.txt                                                                                                          
+➜ ~ $ mv thing.txt mydirectory/
+➜ ~ $ ls
+README.txt  cli-workshop  mydirectory 
+➜ ~ $ ls mydirectory
 thing.txt
-➜  ~  cp mydirectory/thing.txt thing2.txt
-➜  ~  ls
-cli-c4l  cli-workshop  code  mydirectory  thing2.txt
-➜  ~  cp thing2.txt thing3.txt
-➜  ~  ls
-cli-c4l  cli-workshop  code  mydirectory  thing2.txt  thing3.txt
-➜  ~  rm thing2.txt
-➜  ~  ls
-cli-c4l  cli-workshop  code  mydirectory  thing3.txt
-➜  ~  rm mydirectory
-rm: cannot remove ‘mydirectory’: Is a directory
-➜  ~  ls *.txt
-thing3.txt
-➜  ~  rm mydirectory/*
-zsh: sure you want to delete all the files in /home/nitrous/mydirectory [yn]? y
-➜  ~  rmdir mydirectory
-➜  ~  ls
-cli-c4l  cli-workshop  code  thing3.txt
+➜ ~ $ cp mydirectory/thing.txt thing2.txt
+➜ ~ $ ls
+README.txt  cli-workshop  mydirectory  thing2.txt                                                                                                         
+➜ ~ $ cp thing2.txt thing3.txt                                           
+➜ ~ $ ls
+README.txt  cli-workshop  mydirectory  thing2.txt  thing3.txt                                                                                             
+➜ ~ $ rm thing2.txt
+➜ ~ $ ls  
+README.txt  cli-workshop  mydirectory  thing3.txt                                                                                                         
+➜ ~ $ rm mydirectory/
+rm: cannot remove ‘mydirectory/’: Is a directory
+➜ ~ $ rmdir mydirectory
+rmdir: failed to remove ‘mydirectory’: Directory not empty                                                                                                
+➜ ~ $ ls *.txt
+README.txt  thing3.txt 
+➜ ~ $ rm mydirectory/* 
+➜ ~ $ rmdir mydirectory
+➜ ~ $ ls 
+README.txt  cli-workshop  thing3.txt  
+➜ ~ $ cd cli-workshop/exercise/                        
+➜ ~/cli-workshop/exercise (master)$ more instructions.md 
+_[the file comes up and goes away when you hit 'q']_
+➜ ~/cli-workshop/exercise (master)$ less instructions.md 
+_[the file comes up and goes away when you hit 'q']_
+➜ ~/cli-workshop/exercise (master)$ cat instructions.md  
+_[the whole file comes up, and the top is scrolled off the top of your screen]_
+➜ ~/cli-workshop/exercise (master)$ cat instructions.md makefiles.py
+_[both files come up, one after the other]_
+➜ ~/cli-workshop/exercise (master)$ head instructions.md                                                                                              
+# Intro to the Command Line - Self-paced exercise                                                                                                         
+                                                                                                                                                          
+The exercises below will cover batch renaming of files, searching for files and text within them, and making quick edits to text files.                   
+                                                                                                                                                          
+Also, a reminder: the workshop leader is still here to help. Get their attention if you need help! Or, if you're flying through it, feel free to help anyo
+ne who looks a little lost. This is all written out so that you can use it later, but I'm still here to help you. :)                                      
+                                                                                                                                                          
+OK, here we go!                                                                                                                                                                                                
+## Setup
+➜ ~/cli-workshop/exercise (master)$ head -n 100 instructions.md
+_[the first 100 lines of instructions.md come up]_
+➜ ~/cli-workshop/exercise (master)$ tail instructions.md
+`> nano +99 human_rights.txt`
+And now you're right there by the line you searched for, and you can make relevant edits. 👍 
+If it's your first time in a text editor on the command line, please take a little time to play. It can be super disorienting at first, but it's useful to
+ develop a little comfort with CLI text editors! (And don't worry about messing anything up; the Universal Declaration of Human Rights is still out there 
+on the internet, no matter what you do to this copy. 😉)
+We don't need to go through all of the commands right now, but it's worth pointing out that `ctrl-k` cuts an entire line, and `ctrl-u` puts it back in __w
+herever your cursor is__. So that's how you cut and paste in a text file on the command line.
+Also, if you want to save your work without exiting the file, you want to use `ctrl-o`.
+➜ ~/cli-workshop/exercise (master)$ tail -n 100 instructions.md
+_[the last 100 lines of instructions.md come up]_
+➜ ~/cli-workshop/exercise (master)$ tail -f instructions.md
+`> nano +99 human_rights.txt`
+And now you're right there by the line you searched for, and you can make relevant edits. 👍 
+If it's your first time in a text editor on the command line, please take a little time to play. It can be super disorienting at first, but it's useful to
+ develop a little comfort with CLI text editors! (And don't worry about messing anything up; the Universal Declaration of Human Rights is still out there 
+on the internet, no matter what you do to this copy. 😉)
+We don't need to go through all of the commands right now, but it's worth pointing out that `ctrl-k` cuts an entire line, and `ctrl-u` puts it back in __w
+herever your cursor is__. So that's how you cut and paste in a text file on the command line.
+Also, if you want to save your work without exiting the file, you want to use `ctrl-o`.
 
-After this it's all looking at big text files, not as useful in this format. 
+^C
+➜ ~/cli-workshop/exercise (master)$ cat instructions.md makefiles.py > combined.txt
+➜ ~/cli-workshop/exercise (master)$ tail -n 100 instructions.md > end.txt
+➜ ~/cli-workshop/exercise (master)$ cat instructions.md | head
+# Intro to the Command Line - Self-paced exercise
+The exercises below will cover batch renaming of files, searching for files and text within them, and making quick edits to text files. 
+Also, a reminder: the workshop leader is still here to help. Get their attention if you need help! Or, if you're flying through it, feel free to help anyo
+ne who looks a little lost. This is all written out so that you can use it later, but I'm still here to help you. :)
+OK, here we go!
+## Setup
+➜ ~/cli-workshop/exercise (master)$ echo 'cheesesteak' | sed -e 's/cheese/cheez/' > merica.txt
+➜ ~/cli-workshop/exercise (master)$ cat merica.txt 
+cheezsteak
+➜ ~/cli-workshop/exercise (master)$ 
